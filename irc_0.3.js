@@ -7,7 +7,6 @@ io.sockets.on('connection', function (socket) {
   });
 });
 
-
 // =====================================================================
 
 var channels_nokick = ['#csli']
@@ -21,6 +20,20 @@ var client = new irc.Client('irc.freenode.net', 'test_nodejs', {
 	port: 6667,
 	debug: true,
 });
+
+
+// =====================================================================
+
+client.addListener('message', function (nick, to, text, message) {
+	io.sockets.emit('message', arguments)
+});
+
+client.addListener('selfMessage', function ( to, text ) {
+	io.sockets.emit('message', [ client.nick , to, text ])
+});
+
+// =====================================================================
+
 
 client.once('join#csli', function (nick, message) {
 	if ( nick == client.nick )
@@ -59,9 +72,4 @@ client.addListener('invite', function (channel, from, message) {
 	})
 });
 
-// =====================================================================
-
-client.addListener('message', function (nick, to, text, message) {
-	io.sockets.emit('message', arguments)
-});
 
