@@ -29,46 +29,46 @@ client.addListener('message', function (nick, to, text, message) {
 });
 
 client.addListener('selfMessage', function ( to, text ) {
-	io.sockets.emit('message', [ client.nick , to, text ])
+	io.sockets.emit('message', [ this.nick , to, text ])
 });
 
 // =====================================================================
 
 
 client.once('join#csli', function (nick, message) {
-	if ( nick == client.nick )
-		client.say('#csli', "I'm online !" )
+	if ( nick == this.nick )
+		this.say('#csli', "I'm online !" )
 });
 
 client.addListener('message', function (nick, to, text, message) {
 	if ( text == "ping" ){
-		if (to == client.nick )
-			client.say( nick , "pong [PM]" )
+		if (to == this.nick )
+			this.say( nick , "pong [PM]" )
 		else
-			client.say( to , "pong [CHAN]" )
+			this.say( to , "pong [CHAN]" )
 	}
 });
 
 client.addListener('kick', function (channel, nick, by, reason, message) {
-	if ( nick == client.nick ){
-		if ( client.autoRejoin) {
-			client.say( channel , "You can't kick me !" )
+	if ( nick == this.nick ){
+		if ( this.autoRejoin) {
+			this.say( channel , "You can't kick me !" )
 		}
 		else if ( channels_nokick.indexOf(channel) != -1 ){
-			client.join(channel, function(){
+			this.join(channel, function(){
 				// I don't know why channel is correctly definied but ... why not !
-				client.say( channel , "You can't kick me !" )
+				this.say( channel , "You can't kick me !" )
 			})
 		}
 	}
 	else
-		client.say( channel , "Haha " + nick + " s'est fait trop KEN !" )
+		this.say( channel , "Haha " + nick + " s'est fait trop KEN !" )
 });
 
 client.addListener('invite', function (channel, from, message) {
-	client.join( channel , function(){
+	this.join( channel , function(){
 		// I don't know why channel is correctly definied but ... why not !
-		client.say( channel , "Hummm what's going here ?" )
+		this.say( channel , "Hummm what's going here ?" )
 	})
 });
 
