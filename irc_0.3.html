@@ -1,14 +1,33 @@
 <html>
 	<head>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script src="http://localhost:8080/socket.io/socket.io.js"></script>
 		<script>
 		  var socket = io.connect('http://localhost:8080');
-		  socket.on('news', function (data) {
+		  socket.on('message', function (data) {
+			$("#toto").append("<tr><td>"+ data[0] +"</td><td>"+ data[1] +"</td><td>"+ data[2] +"</td></tr>")
+		  });
+		  
+		  socket.on('connected', function (data) {
 			console.log(data);
+			$("#chans").html( data.chans.join(', ') )
+			
 			socket.emit('my other event', { my: 'data' });
 		  });
 		</script>
 	</head>
 	<body>
+		<h1>Channels : <span id="chans"></span></h1>
+		<table>
+			<thead>
+				<tr>
+					<th>FROM</th>
+					<th>TO</th>
+					<th>MESSAGE</th>
+				</tr>
+			</thead>
+			<tbody id="toto">
+			</tbody>
+		</table>
 	</body>
 </html>

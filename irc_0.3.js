@@ -1,11 +1,14 @@
 var io = require('socket.io').listen(8080);
 
 io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
+  socket.emit('connected', { chans: client.opt.channels });
   socket.on('my other event', function (data) {
     console.log(data);
   });
 });
+
+
+// =====================================================================
 
 var channels_nokick = ['#csli']
 var irc = require('irc');
@@ -54,5 +57,11 @@ client.addListener('invite', function (channel, from, message) {
 		// I don't know why channel is correctly definied but ... why not !
 		client.say( channel , "Hummm what's going here ?" )
 	})
+});
+
+// =====================================================================
+
+client.addListener('message', function (nick, to, text, message) {
+	io.sockets.emit('message', arguments)
 });
 
