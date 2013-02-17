@@ -1,5 +1,7 @@
 var io = require('socket.io').listen(8080);
 
+io.set('log level', 2);
+
 io.sockets.on('connection', function (socket) {
   socket.emit('connected', { chans: client.opt.channels });
   socket.on('my other event', function (data) {
@@ -30,6 +32,10 @@ client.addListener('message', function (nick, to, text, message) {
 
 client.addListener('selfMessage', function ( to, text ) {
 	io.sockets.emit('message', [ this.nick , to, text ])
+});
+
+client.addListener('ctcp', function (from, to, text, type) {
+	io.sockets.emit('message', [ from , to, "["+type+"]** " + text ])
 });
 
 // =====================================================================
