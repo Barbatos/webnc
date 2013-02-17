@@ -1,10 +1,59 @@
 <html>
 	<head>
+	
+		<!--
+		  Desktop Notification API Demo.
+		  http://0xfe.blogspot.com/2010/04/desktop-notifications-with-webkit.html
+		-->
+	
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script src="http://localhost:8080/socket.io/socket.io.js"></script>
+		<script src="http://home.holblin.com:8080/socket.io/socket.io.js"></script>
+		
 		<script>
-		  var socket = io.connect('http://localhost:8080');
+			function Notifier() {}
+
+			// Returns "true" if this browser supports notifications.
+			Notifier.prototype.HasSupport = function() {
+			  if (window.webkitNotifications) {
+				return true;
+			  } else {
+				return false;
+			  }
+			}
+
+			// Request permission for this page to send notifications. If allowed,
+			// calls function "cb" with true.
+			Notifier.prototype.RequestPermission = function(cb) {
+			  window.webkitNotifications.requestPermission(function() {
+				if (cb) { cb(window.webkitNotifications.checkPermission() == 0); }
+			  });
+			}
+
+			// Popup a notification with icon, title, and body. Returns false if
+			// permission was not granted.
+			Notifier.prototype.Notify = function(icon, title, body) {
+			  if (window.webkitNotifications.checkPermission() == 0) {
+				var popup = window.webkitNotifications.createNotification(
+				icon, title, body);
+				popup.show();
+
+				return true;
+			  }
+
+			  return false;
+			}
+		  </script>
+		
+		<script>
+	      var notifier = new Notifier();
+	  
+		  $("#request-permission").click(function() {
+			notifier.RequestPermission();
+		  });
+		
+		
+		  var socket = io.connect('http://home.holblin.com:8080');
 		  socket.on('message', function (data) {
 		  
 			wText=data[2]
@@ -15,6 +64,9 @@
 			wText=wText.replace(/'/g, "&#146;");
 			wText=wText.replace(/ /g, "&nbsp;");
 			$("#toto").append("<tr><td>"+ data[0] +"</td><td>"+ data[1] +"</td><td>"+ wText +"</td></tr>")
+			
+			notifier.Notify("", data[0] + " => " + data[1], data[2] )
+			
 		  });
 		  
 		  socket.on('connected', function (data) {
@@ -24,9 +76,11 @@
 			socket.emit('my other event', { my: 'data' });
 		  });
 		</script>
+		
 	</head>
 	<body>
 		<h1>Channels : <span id="chans"></span></h1>
+	    <a href="#" class="button" id="request-permission">Request Permission</a>
 		<table>
 			<thead>
 				<tr>
