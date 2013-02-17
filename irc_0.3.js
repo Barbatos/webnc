@@ -12,6 +12,7 @@ io.sockets.on('connection', function (socket) {
 // =====================================================================
 
 var channels_nokick = ['#csli']
+var channels_messages = {}
 var irc = require('irc');
 var util = require('util');
 var client = new irc.Client('irc.freenode.net', 'test_nodejs', {
@@ -36,6 +37,12 @@ client.addListener('selfMessage', function ( to, text ) {
 
 client.addListener('ctcp', function (from, to, text, type) {
 	io.sockets.emit('message', [ from , to, "["+type+"]** " + text ])
+});
+
+
+client.addListener('join', function (channel, nick, message) {
+	if ( nick == this.nick )
+		io.sockets.emit('message',[ nick , channel , nick + " join the channel (" + message +")"])
 });
 
 // =====================================================================
