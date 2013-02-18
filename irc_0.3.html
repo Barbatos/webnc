@@ -45,39 +45,53 @@
 		    http://www.lafermeduweb.net/billet/html5-notifications-les-notifications-html5-sur-webkit-1300.html
 		-->
 		<script>
-			var enable_webkitNotifications = false;
-			var unread = 0;
+		var enable_webkitNotifications = false;
+		var unread = 0;
+		
+		$(function(){
 			if ( window.webkitNotifications ) {
-				// Notifications supportées, on vérifie si l'utilisateur à bien donné l'autorisation d'utiliser les notifications
+				// Notifications supportÃ©es, on vÃ©rifie si l'utilisateur Ã  bien donnÃ© l'autorisation d'utiliser les notifications
 				if (window.webkitNotifications.checkPermission() == 0) {
-					// Si = 0, alors autorisé.  
-					// On créé la notification !
+					$("#request-permission").hide();
+					// Si = 0, alors autorisÃ©.  
+					// On crÃ©Ã© la notification !
 					enable_webkitNotifications = true;
 				} else {
+					$("#request-permission").show();
 					window.webkitNotifications.requestPermission(function(){
 						if (window.webkitNotifications.checkPermission() != 0){
 							enable_webkitNotifications = true;
+							$("#request-permission").hide();
 						}
 					})
 				}
 
 			}
-			
-			function clearOnFocus(){
-				$(window).one('focus', function () {
-					unread = 0;
-					Tinycon.reset();
-				})
+			$("#request-permission").click(function(){
+				window.webkitNotifications.requestPermission(function(){
+					if (window.webkitNotifications.checkPermission() != 0){
+						enable_webkitNotifications = true;
+						$("#request-permission").hide();
+					}
+				})			
+			})
+		})
+		
+		function clearOnFocus(){
+			$(window).one('focus', function () {
+				unread = 0;
+				Tinycon.reset();
+			})
+		}
+		
+		function notify( icon , title , message ){
+			if (enable_webkitNotifications){
+				var notif = window.webkitNotifications.createNotification( icon, title, message);
+				notif.show();
 			}
-			
-			function notify( icon , title , message ){
-				if (enable_webkitNotifications){
-					var notif = window.webkitNotifications.createNotification( icon, title, message);
-					notif.show();
-				}
-				Tinycon.setBubble( ++unread );
-				clearOnFocus();
-			}
+			Tinycon.setBubble( ++unread );
+			clearOnFocus();
+		}
 		</script>
 
 		
@@ -102,7 +116,7 @@
 		
 		
 		<script>	
-		  var socket = io.connect('http://home.holblin.com:8080');
+		  var socket = io.connect('http://localhost:8080');
 		  socket.on('message', function (data) {
 		  
 			wText=data[2]

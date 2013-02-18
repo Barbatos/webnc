@@ -12,7 +12,6 @@ io.sockets.on('connection', function (socket) {
 // =====================================================================
 
 var channels_nokick = ['#csli']
-var channels_messages = {}
 var irc = require('irc');
 var util = require('util');
 var client = new irc.Client('irc.freenode.net', 'test_nodejs', {
