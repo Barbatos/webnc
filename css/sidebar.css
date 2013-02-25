@@ -18,18 +18,22 @@
   padding: 8px 14px;
   border: 1px solid #e5e5e5;
 }
-.bs-docs-sidenav > li:first-child > a {
+.bs-docs-sidenav:first-child > li:first-child > a {
   -webkit-border-radius: 6px 6px 0 0;
      -moz-border-radius: 6px 6px 0 0;
           border-radius: 6px 6px 0 0;
 }
-.bs-docs-sidenav > li:last-child > a {
+.bs-docs-sidenav:last-child > li:last-child > a {
   -webkit-border-radius: 0 0 6px 6px;
      -moz-border-radius: 0 0 6px 6px;
           border-radius: 0 0 6px 6px;
 }
 .bs-docs-sidenav > .channel > a {
   padding-left: 30px;
+}
+
+.bs-docs-sidenav > .channel.active > a {
+  padding: 9px 15px 9px 30px;
 }
 .bs-docs-sidenav > .active > a {
   position: relative;
@@ -47,6 +51,6 @@
 }
 .bs-docs-sidenav .active .icon-chevron-right,
 .bs-docs-sidenav .active a:hover .icon-chevron-right {
-  background-image: url(../img/glyphicons-halflings-white.png);
+  background-image: url( http://twitter.github.com/bootstrap/assets/img/glyphicons-halflings-white.png);
   opacity: 1;
 }

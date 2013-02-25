@@ -1,0 +1,12 @@
+express
+hogan (compiler for Mustache)
+socket.io
+
+bootstrap
+Jquery
+Tinycon
+webkitNotifications
+Sound Manager 2
+
+irc
+mysql
