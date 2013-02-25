@@ -243,6 +243,7 @@
       <div class="row-fluid">
         <div class="span3 bs-docs-sidebar">
           <div class="span3" data-spy="affix">
+            <h1 ng-click="test()">test</h1>
             <ul class="nav nav-list bs-docs-sidenav" ng-repeat="tab in tabs">
 
                 <li class="server" ng-class="{ active : tab.name == selected_tab }">
@@ -258,26 +259,47 @@
 
 
           <div class="span9">
-            <div class="row-fluid" ng-repeat="tab_messages in tabs_messages" ng-show="tab_messages.name == selected_tab">
-              <table class="table table-striped table-condensed table-bordered">
-                <thead>
-                  <tr>
-                    <th colspan="3">{{tab_messages.name}} -> {{tab_messages.subject}}</th>
-                  </tr>
-                  <tr>
-                    <th>Time</th>
-                    <th>Pseudo</th>
-                    <th>Message</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="message in tab_messages.messages">
-                    <td>{{message.date}}</td>
-                    <td>{{message.from}}</td>
-                    <td ng-bind-html-unsafe="message.content"></td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="row-fluid" ng-repeat="tab in tabs">
+              <div ng-show="tab.name == selected_tab">
+                <div class="span9 well well-small">{{tab.name}} -> {{tab.subject}}</div>
+                <table class="table table-striped table-condensed table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Time</th>
+                      <th>Pseudo</th>
+                      <th>Message</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="message in tab.messages">
+                      <td>{{message.date}}</td>
+                      <td>{{message.from}}</td>
+                      <td ng-bind-html-unsafe="message.content"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+
+              <div ng-repeat="chan in tab.channels" ng-show="chan.name == selected_tab">
+                <div class="span9 well well-small">{{chan.name}} -> {{chan.subject}}</div>
+                <table class="table table-striped table-condensed table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Time</th>
+                      <th>Pseudo</th>
+                      <th>Message</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="message in chan.messages">
+                      <td>{{message.date}}</td>
+                      <td>{{message.from}}</td>
+                      <td ng-bind-html-unsafe="message.content"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div><!--/row-->
           </div><!--/span-->
         </div><!--/row-->
