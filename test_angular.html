@@ -7,24 +7,13 @@
     <meta name="description" content="IRC Webchat with BNC features">
     <meta name="author" content="HoLbLiN">
 	
-    <!--
-      php 2 js
-        http://phpjs.org/
-    -->
+    <!-- php 2 js -- http://phpjs.org/ -->
     <script src="js/php2js.js"></script>
 
-    <!--
-      Angular.js
-        http://angularjs.org/
-        http://www.grafikart.fr/tutoriels/angularjs/angularjs-todo-369
-    -->
+    <!-- Angular.js -- http://angularjs.org/ -->
     <script src="js/angular.min.js"></script>
 
-		<!--
-		  Terminal like font !
-		    http://hivelogic.com/articles/top-10-programming-fonts
-		    http://www.google.com/webfonts
-		-->
+		<!-- Terminal like font ! -- http://hivelogic.com/articles/top-10-programming-fonts -->
 		<!-- <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'> -->
     <style type="text/css">
       @font-face {
@@ -41,16 +30,10 @@
       }
 		</style>
 
-		<!--
-		  Jquery
-		-->
+		<!-- Jquery -->
 		<script src="js/jquery.min.js"></script>
 	
-		<!--
-		  Tinycon, notification par changement de la favicon
-		    http://www.lafermeduweb.net/billet/tinycon-gerer-dynamiquement-des-alertes-dans-les-favicons-1288.html
-			  https://github.com/tommoor/tinycon
-		-->
+		<!-- Tinycon -- https://github.com/tommoor/tinycon -->
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 		<script src="js/tinycon.min.js"></script>
 		<script>
@@ -64,12 +47,7 @@
 			});
 		</script>
 		
-		<!--
-		  Desktop Notification API Demo.
-			  http://www.chromium.org/developers/design-documents/desktop-notifications/api-specification
-		    http://0xfe.blogspot.com/2010/04/desktop-notifications-with-webkit.html
-		    http://www.lafermeduweb.net/billet/html5-notifications-les-notifications-html5-sur-webkit-1300.html
-		-->
+		<!-- Desktop Notification API Demo. -- http://0xfe.blogspot.com/2010/04/desktop-notifications-with-webkit.html -->
 		<script src="js/webkitNotifications.js"></script>
 
     <script>
@@ -148,27 +126,18 @@
     </script>
 
 		
-		<!--
-		  Bootstrap
-		-->
+		<!-- Bootstrap -->
 		<link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
 		<script src="js/bootstrap.min.js"></script>
 		
-		<!--
-		  Socket.IO
-		-->
+		<!-- Socket.IO -->
 		<script src="js/socket.io.min.js"></script>
 		
-		<!--
-		  Mustache
-		-->
+		<!-- Mustache -->
 		<!-- <script src="js/mustache.min.js"></script> -->
 		
-    <!--
-      Sound Manager 2
-        http://www.schillmania.com/projects/soundmanager2/
-		-->
+    <!-- Sound Manager 2 -- http://www.schillmania.com/projects/soundmanager2/ -->
 
 
     <script src="test_angular.js"></script>
@@ -198,8 +167,11 @@
           </button>
           <a class="brand" href="#">WEBNC</a>
           <div class="nav-collapse collapse">
-            <p class="navbar-text pull-right">
+            <p class="navbar-text pull-right" ng-show="username != ''">
               Logged in as <a href="#" class="navbar-link">{{username}}</a>
+            </p>
+            <p class="navbar-text pull-right" ng-show="username == ''">
+              Not logged !</a>
             </p>
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
