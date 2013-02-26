@@ -94,11 +94,11 @@ $(function(){
       $scope.username = $("#login-username").val();
       setTimeout(function(){ // simulate websocket get servers and channels
         // add servers and channels
-        $scope.addServer( 0 , quakenet );
-        $scope.addChannel( 0 , 0, frozensand );
-        $scope.addChannel( 0 , 1, pandy );
-        $scope.addServer( 1 , freenode );
-        $scope.addChannel( 1 , 0, csli );
+        $scope.addTab( '0'   , quakenet );
+        $scope.addTab( '0:0' , frozensand );
+        $scope.addTab( '0:1' , pandy );
+        $scope.addTab( '1'   , freenode );
+        $scope.addTab( '1:0' , csli );
 
         $scope.selectTab('0'); // select first server
         $scope.$apply(); // apply modifications
@@ -120,25 +120,92 @@ $(function(){
 })
 
 
-angular.module("myApp", []).controller("Webnc", function($scope) {
+function getObjKey( key ){
+  if ( typeof key == "string" ){
+    var tmp = key.split(':');
+    key = { server: null , channel: null };
+    key.server = tmp[0];
+    if ( tmp.length == 2)
+      key.channel = tmp[1];
+    return key;
+  }
+  else {
+    if ( typeof key.channel == "undefined" ){
+      key.channel = null;
+    }
+    return key;
+  }
+}
 
+function getStrKey( key ){
+  if ( typeof key != "string" ){
+    var tmp = ""
+    tmp += key.server;
+    if ( typeof key.channel != "undefined" && key.channel != null )
+      tmp += ":" + key.channel;
+    return tmp;
+  }
+  else
+    return key;
+}
+
+angular.module("myApp", []).controller("Webnc", function($scope) {
 
   $scope.username = '';
 
 
   $scope.tabs = [];
   $scope.selected_tab = '';
-
-  $scope.selectTab = function( name ){
-    $scope.selected_tab = name;
-  }
+  
 
   $scope.test = function( arg ){
     var i = 0;
     for (i = 0 ; i < 10 ; i++){
-      $scope.addMessage( 0 , null, {date: '13:96', from:'asche', content:'TOTO'} );
-      $scope.addMessage( 0 , 0, {date: '13:96', from:'asche', content:'TOTO'} );
+      $scope.addMessage( { server: 0 } ,             {date: '13:96', from:'asche', content: md5(Math.random()) } );
+      $scope.addMessage( { server: 0 , channel: 0 }, {date: '13:96', from:'asche', content: md5(Math.random()) } );
     }
+  }
+
+
+  $scope.tabExist = function( key ){
+    key = getObjKey( key );
+    if ( key.channel == null ){
+      if ( typeof $scope.tabs[ key.server ] != "undefined" )
+        return true;
+      else
+        return false;
+    } else {
+      if ( typeof $scope.tabs[ key.server ] == "undefined" )
+        return -1;
+
+      if ( typeof $scope.tabs[ key.server ].channels[ key.channel ] != "undefined" )
+        return true;
+      else
+        return false;
+    }
+  }
+
+  $scope.getTab = function( key ){
+    key = getObjKey( key )
+    if ( $scope.tabExist(key) !== true )
+      return false;
+    if ( key.channel == null )
+      return $scope.tabs[ key.server ];
+    else
+      return $scope.tabs[ key.server ].channels[ key.channel ];
+  }
+
+
+  $scope.selectTab = function( key ){
+    // save current scroll Height
+    $scope.getTab( $scope.selected_tab ).scrollTop = $(document.body).prop('scrollTop');
+
+    // switch tab
+    $scope.selected_tab = getStrKey( key );
+    //restaure scroll Height
+    $(document.body).stop(true, true).prop({scrollTop: $scope.getTab( $scope.selected_tab ).scrollTop }, 50)
+    // clear notiffs
+    $scope.getTab(key).notifs = 0;
   }
 
   $scope.login = function(){
@@ -148,48 +215,41 @@ angular.module("myApp", []).controller("Webnc", function($scope) {
     socket.emit('auth', { password: credital, username: $("#login-username").val() });
   }
 
-  $scope.addServer = function( serverKey , server ){
-    // We REFUSE to REPLACE a server
-    if ( typeof $scope.tabs[serverKey] != "undefined" )
-      return false;
-
-    $scope.tabs[serverKey] = server;
-    $scope.tabs[serverKey].key = serverKey;
-    $scope.tabs[serverKey].channels = [];
-    return true;
-  }
-
-  $scope.addChannel = function( serverKey , channelKey,  channel ){
-    // serverKey MUST be set
-    if ( typeof $scope.tabs[serverKey] == "undefined" )
-      return false;
-
-    // We REFUSE to REPLACE a channel
-    if ( typeof $scope.tabs[serverKey].channels[ channelKey ] != "undefined" )
-      return false;
-
-    $scope.tabs[serverKey].channels[ channelKey ] = channel;
-    $scope.tabs[serverKey].channels[ channelKey ].key = serverKey+ ':' + channelKey;
-    return true;
-  }
-
-  $scope.addMessage = function( serverKey, channelKey, message ){
-    // serverKey MUST be set
-    if ( typeof $scope.tabs[serverKey] == "undefined" )
-      return false;
-    
-    if (channelKey == null ){
-      $scope.tabs[serverKey].messages.push( message );
-      return true;
-    }
-    else {
-      // channelKey must be set too
-      if ( typeof $scope.tabs[serverKey].channels[ channelKey ] == "undefined" )
+  $scope.addTab = function( key , tab ){  
+    key = getObjKey( key );
+    if ( key.channel == null ){
+      // We REFUSE to REPLACE a server
+      if ( $scope.tabExist(key) !== false )
         return false;
 
-      $scope.tabs[serverKey].channels[ channelKey ].messages.push( message );
+      $scope.tabs[ key.server ]           = tab;
+      $scope.tabs[ key.server ].scrollTop = 0;
+      $scope.tabs[ key.server ].key       = getStrKey( key );
+      $scope.tabs[ key.server ].channels  = [];
+
+    } else {
+      // We REFUSE to REPLACE a channel and the server MUST exist
+      if ( $scope.tabExist(key) !== false )
+        return false;
+
+      $scope.tabs[ key.server ].channels[ key.channel ]           = tab;
+      $scope.tabs[ key.server ].channels[ key.channel ].scrollTop = 0;
+      $scope.tabs[ key.server ].channels[ key.channel ].key       = getStrKey( key );
       return true;
     }
+  }
+
+  $scope.addMessage = function( key , message ) {
+    
+    var tab = $scope.getTab( key )
+    tab.messages.push( message );
+
+    if ( $scope.selected_tab != getStrKey(key) ){
+      tab.notifs ++;
+    } else {
+      $(document.body).stop(true, true).animate({scrollTop: $(document.body).prop('scrollHeight')}, 500)
+    }
+    return true;
   }
 
 })

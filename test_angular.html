@@ -231,11 +231,11 @@
             <h1 ng-click="test()">Test</h1>
             <ul class="nav nav-list bs-docs-sidenav" ng-repeat="tab in tabs">
 
-                <li class="server" ng-class="{ active : tab.key == selected_tab }">
+                <li id="menu_{{tab.key}}" class="server" ng-class="{ active : tab.key == selected_tab }">
                   <a ng-click="selectTab( tab.key )">{{tab.name}} <span class="pull-right"><span class="label label-warning" ng-show="tab.notifs">{{tab.notifs}}</span><span class="icon-chevron-right" ng-hide="tab.notifs"></span></span></a>
                 </li>
 
-                <li class="channel" ng-repeat="chan in tab.channels" ng-class="{ active : chan.key == selected_tab }">
+                <li id="menu_{{chan.key}}" class="channel" ng-repeat="chan in tab.channels" ng-class="{ active : chan.key == selected_tab }">
                   <a ng-click="selectTab( chan.key )">{{chan.name}} <span class="pull-right"><span class="label label-warning" ng-show="chan.notifs">{{chan.notifs}}</span><span class="icon-chevron-right" ng-hide="chan.notifs"></span></span></a>  
                 </li>
               </ul>
@@ -245,7 +245,7 @@
 
           <div class="span9">
             <div class="row-fluid" ng-repeat="tab in tabs">
-              <div ng-show="tab.key == selected_tab">
+              <div id="messages_{{tab.key}}" ng-show="tab.key == selected_tab">
                 <div class="span12 well well-small topic" data-spy="affix" data-offset-top="20">{{tab.name}} -> {{tab.subject}}</div>
                 <table class="table table-striped table-condensed table-bordered">
                   <thead>
@@ -266,7 +266,7 @@
               </div>
 
 
-              <div ng-repeat="chan in tab.channels" ng-show="chan.key == selected_tab">
+              <div id="messages_{{chan.key}}" ng-repeat="chan in tab.channels" ng-show="chan.key == selected_tab">
                 <div class="span12 well well-small topic" data-spy="affix" data-offset-top="20">{{chan.name}} -> {{chan.subject}}</div>
                 <table class="table table-striped table-condensed table-bordered">
                   <thead>
