@@ -18,24 +18,33 @@
         http://angularjs.org/
         http://www.grafikart.fr/tutoriels/angularjs/angularjs-todo-369
     -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
+    <script src="js/angular.min.js"></script>
 
 		<!--
 		  Terminal like font !
 		    http://hivelogic.com/articles/top-10-programming-fonts
 		    http://www.google.com/webfonts
 		-->
-		<link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-		<style>
-			body {
-				font-family: 'Inconsolata', sans-serif;
-			}
+		<!-- <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'> -->
+    <style type="text/css">
+      @font-face {
+        font-family: 'Inconsolata';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Inconsolata'), url(css/font/BjAYBlHtW3CJxDcjzrnZCNIh4imgI8P11RFo6YPCPC0.woff) format('woff');
+      }
+      @font-face {
+        font-family: 'Inconsolata';
+        font-style: normal;
+        font-weight: 700;
+        src: local('Inconsolata Bold'), local('Inconsolata-Bold'), url(css/font/AIed271kqQlcIRSOnQH0yYUt79146ZFaIJxILcpzmhI.woff) format('woff');
+      }
 		</style>
-		
+
 		<!--
 		  Jquery
 		-->
-		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="js/jquery.min.js"></script>
 	
 		<!--
 		  Tinycon, notification par changement de la favicon
@@ -43,7 +52,7 @@
 			  https://github.com/tommoor/tinycon
 		-->
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-		<script src="//cdnjs.cloudflare.com/ajax/libs/tinycon/0.5/tinycon.min.js"></script>
+		<script src="js/tinycon.min.js"></script>
 		<script>
 			Tinycon.setOptions({
 				width: 7,
@@ -142,19 +151,19 @@
 		<!--
 		  Bootstrap
 		-->
-		<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
-    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
-		<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
+		<link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+		<script src="js/bootstrap.min.js"></script>
 		
 		<!--
 		  Socket.IO
 		-->
-		<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.10/socket.io.min.js"></script>
+		<script src="js/socket.io.min.js"></script>
 		
 		<!--
 		  Mustache
 		-->
-		<script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.0/mustache.min.js"></script>
+		<!-- <script src="js/mustache.min.js"></script> -->
 		
     <!--
       Sound Manager 2
@@ -171,10 +180,9 @@
         padding-top: 60px;
         padding-bottom: 40px;
       }
-      .topic.affix {
-          top: 35px;
-      }
-      html {overflow-y: scroll;}
+      .messages td { font-family: 'Inconsolata', sans-serif; }
+      .topic.affix { top: 35px; }
+      html { overflow-y: scroll; }
     </style>
 
   </head>
@@ -247,7 +255,7 @@
             <div class="row-fluid" ng-repeat="tab in tabs">
               <div id="messages_{{tab.key}}" ng-show="tab.key == selected_tab">
                 <div class="span12 well well-small topic" data-spy="affix" data-offset-top="20">{{tab.name}} -> {{tab.subject}}</div>
-                <table class="table table-striped table-condensed table-bordered">
+                <table class="table table-striped table-condensed table-bordered messages">
                   <thead>
                     <tr>
                       <th>Time</th>
@@ -268,7 +276,7 @@
 
               <div id="messages_{{chan.key}}" ng-repeat="chan in tab.channels" ng-show="chan.key == selected_tab">
                 <div class="span12 well well-small topic" data-spy="affix" data-offset-top="20">{{chan.name}} -> {{chan.subject}}</div>
-                <table class="table table-striped table-condensed table-bordered">
+                <table class="table table-striped table-condensed table-bordered messages">
                   <thead>
                     <tr>
                       <th>Time</th>
