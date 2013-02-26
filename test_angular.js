@@ -8,8 +8,8 @@ var quakenet = {
         {date: new Date('02/26/13 13:37'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
         {date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'officia deserunt mollit anim id est laborum.' },
         {date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:38'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 17:09'), from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
+        {date: new Date('02/26/13 17:38'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('01/26/13 11:09'), from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
       ]
     };
 var frozensand = {
@@ -37,7 +37,7 @@ var pandy = {
         {date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'officia deserunt mollit anim id est laborum.' },
         {date: new Date('02/26/13 18:37'), from: 'pandy',   content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
         {date: new Date('02/26/13 18:38'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 18:39'), from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
+        {date: new Date('01/26/13 11:39'), from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
       ]
     };
 var csli = {
@@ -152,7 +152,6 @@ function getStrKey( key ){
 angular.module("myApp", []).controller("Webnc", function($scope) {
 
   $scope.username = '';
-
 
   $scope.tabs = [];
   $scope.selected_tab = '';

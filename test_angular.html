@@ -236,7 +236,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="message in tab.messages" ng-class="{ info : message.date > tab.last_seen }">
+                    <tr ng-repeat="message in tab.messages | orderBy:'date':false" ng-class="{ info : message.date > tab.last_seen }">
                       <td>{{message.date | date:'HH:mm'}}</td>
                       <td>{{message.from}}</td>
                       <td>{{message.content}}</td>
@@ -257,7 +257,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="message in chan.messages" ng-class="{ info : message.date > tab.last_seen }">
+                    <tr ng-repeat="message in chan.messages | orderBy:'date':false" ng-class="{ info : message.date > tab.last_seen }">
                       <td>{{message.date | date:'HH:mm'}}</td>
                       <td>{{message.from}}</td>
                       <td>{{message.content}}</td>
