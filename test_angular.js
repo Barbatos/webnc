@@ -3,13 +3,13 @@ var quakenet = {
       subject: 'Super sujet de la mort qui tue',
       notifs : 5,
       messages : [
-        {date: '13:31', from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint <h1>occaecat</h1> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:33', from: 'pandy',   content: 'cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:37', from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:37', from: 'pandy',   content: 'officia deserunt mollit anim id est laborum.' },
-        {date: '13:37', from: 'pandy',   content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:38', from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:39', from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
+        {date: new Date('02/26/13 13:31'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint <h1>occaecat</h1> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:33'), from: 'pandy',   content: 'cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:37'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:38'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 17:09'), from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
       ]
     };
 var frozensand = {
@@ -17,13 +17,13 @@ var frozensand = {
       subject: 'Super sujet de la mort qui tue',
       notifs : 9,
       messages : [
-        {date: '13:31', from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint <h1>occaecat</h1> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:33', from: 'pandy',   content: 'cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:37', from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:37', from: 'pandy',   content: 'officia deserunt mollit anim id est laborum.' },
-        {date: '13:37', from: 'pandy',   content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:38', from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:39', from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
+        {date: new Date('02/26/13 13:31'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint <h1>occaecat</h1> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:33'), from: 'pandy',   content: 'cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:37'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:38'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:39'), from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
       ]
     };
 var pandy = {
@@ -31,13 +31,13 @@ var pandy = {
       subject: 'Super sujet de la mort qui tue',
       notifs : 0,
       messages : [
-        {date: '13:31', from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint <h1>occaecat</h1> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:33', from: 'pandy',   content: 'cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:37', from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:37', from: 'pandy',   content: 'officia deserunt mollit anim id est laborum.' },
-        {date: '13:37', from: 'pandy',   content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:38', from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:39', from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
+        {date: new Date('02/26/13 13:31'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint <h1>occaecat</h1> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:33'), from: 'pandy',   content: 'cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:37'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 18:37'), from: 'pandy',   content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 18:38'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 18:39'), from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
       ]
     };
 var csli = {
@@ -45,13 +45,13 @@ var csli = {
       subject: 'Super cslicsli csli la mort qui tue',
       notifs : 0,
       messages : [
-        {date: '13:31', from: 'holblin', content: 'Lorem ipsum csli sit amet, consectetupteur sint <h1>csli</h1> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:33', from: 'pandy',   content: 'cupidatat non csli, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:37', from: 'holblin', content: 'Lorem ipsum dolor sit amet, csli sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:37', from: 'pandy',   content: 'officia deserunt mollit anim id est laborum.' },
-        {date: '13:37', from: 'pandy',   content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:38', from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:39', from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
+        {date: new Date('02/26/13 13:31'), from: 'holblin', content: 'Lorem ipsum csli sit amet, consectetupteur sint <h1>csli</h1> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:33'), from: 'pandy',   content: 'cupidatat non csli, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:37'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, csli sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 18:38'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 18:39'), from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
       ]
     };
 var freenode = {
@@ -59,13 +59,13 @@ var freenode = {
       subject: 'frozensand subject !!!',
       notifs : 8,
       messages : [
-        {date: '13:31', from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint <h1>occaecat</h1> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:33', from: 'raider',  content: 'cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:37', from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:37', from: 'raider',  content: 'officia deserunt mollit anim id est laborum.' },
-        {date: '13:37', from: 'raider',  content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:38', from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: '13:39', from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
+        {date: new Date('02/26/13 13:31'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint <h1>occaecat</h1> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:33'), from: 'raider',  content: 'cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:37'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:37'), from: 'raider',  content: 'officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 13:37'), from: 'raider',  content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 18:38'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+        {date: new Date('02/26/13 18:39'), from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
       ]
     };
 
@@ -161,8 +161,8 @@ angular.module("myApp", []).controller("Webnc", function($scope) {
   $scope.test = function( arg ){
     var i = 0;
     for (i = 0 ; i < 10 ; i++){
-      $scope.addMessage( { server: 0 } ,             {date: '13:96', from:'asche', content: md5(Math.random()) } );
-      $scope.addMessage( { server: 0 , channel: 0 }, {date: '13:96', from:'asche', content: md5(Math.random()) } );
+      $scope.addMessage( { server: 0 } ,             {date: new Date('02/26/13 13:56'), from:'asche', content: md5(Math.random()) } );
+      $scope.addMessage( { server: 0 , channel: 0 }, {date: new Date('02/26/13 13:56'), from:'asche', content: md5(Math.random()) } );
     }
   }
 
@@ -198,7 +198,9 @@ angular.module("myApp", []).controller("Webnc", function($scope) {
 
   $scope.selectTab = function( key ){
     // save current scroll Height
-    $scope.getTab( $scope.selected_tab ).scrollTop = $(document.body).prop('scrollTop');
+    var last_selected = $scope.getTab( $scope.selected_tab )
+    last_selected.scrollTop = $(document.body).prop('scrollTop');
+    last_selected.last_seen = new Date();
 
     // switch tab
     $scope.selected_tab = getStrKey( key );
@@ -224,6 +226,7 @@ angular.module("myApp", []).controller("Webnc", function($scope) {
 
       $scope.tabs[ key.server ]           = tab;
       $scope.tabs[ key.server ].scrollTop = 0;
+      $scope.tabs[ key.server ].last_seen = new Date();
       $scope.tabs[ key.server ].key       = getStrKey( key );
       $scope.tabs[ key.server ].channels  = [];
 
@@ -234,6 +237,7 @@ angular.module("myApp", []).controller("Webnc", function($scope) {
 
       $scope.tabs[ key.server ].channels[ key.channel ]           = tab;
       $scope.tabs[ key.server ].channels[ key.channel ].scrollTop = 0;
+      $scope.tabs[ key.server ].channels[ key.channel ].last_seen = new Date();
       $scope.tabs[ key.server ].channels[ key.channel ].key       = getStrKey( key );
       return true;
     }
