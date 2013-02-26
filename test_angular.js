@@ -160,8 +160,8 @@ angular.module("myApp", []).controller("Webnc", function($scope) {
   $scope.test = function( arg ){
     var i = 0;
     for (i = 0 ; i < 10 ; i++){
-      $scope.addMessage( { server: 0 } ,             {date: new Date('02/26/13 13:56'), from:'asche', content: md5(Math.random()) } );
-      $scope.addMessage( { server: 0 , channel: 0 }, {date: new Date('02/26/13 13:56'), from:'asche', content: md5(Math.random()) } );
+      $scope.addMessage( { server: 0 } ,             {date: new Date(), from:'asche', content: md5(Math.random()) } );
+      $scope.addMessage( { server: 0 , channel: 0 }, {date: new Date(), from:'asche', content: md5(Math.random()) } );
     }
   }
 
@@ -203,8 +203,14 @@ angular.module("myApp", []).controller("Webnc", function($scope) {
 
     // switch tab
     $scope.selected_tab = getStrKey( key );
-    //restaure scroll Height
-    $(document.body).stop(true, true).prop({scrollTop: $scope.getTab( $scope.selected_tab ).scrollTop }, 50)
+    
+    //restaure scroll Height ( + setTimeout for bugfix )
+    $(document.body).stop(true, true).prop({scrollTop: $scope.getTab( $scope.selected_tab ).scrollTop })
+    setTimeout(function(){
+      var $scope = get_angular();
+      $(document.body).stop(true, true).prop({scrollTop: $scope.getTab( $scope.selected_tab ).scrollTop })
+    },100)
+
     // clear notiffs
     $scope.getTab(key).notifs = 0;
   }

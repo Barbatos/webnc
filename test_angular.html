@@ -212,11 +212,11 @@
             <ul class="nav nav-list bs-docs-sidenav" ng-repeat="tab in tabs">
 
                 <li id="menu_{{tab.key}}" class="server" ng-class="{ active : tab.key == selected_tab }">
-                  <a ng-click="selectTab( tab.key )">{{tab.name}} <span class="pull-right"><span class="label label-warning" ng-show="tab.notifs">{{tab.notifs}}</span><span class="icon-chevron-right" ng-hide="tab.notifs"></span></span></a>
+                  <a ng-click="selectTab( tab.key )">{{tab.name}} {{tab.scrollTop}}<span class="pull-right"><span class="label label-warning" ng-show="tab.notifs">{{tab.notifs}}</span><span class="icon-chevron-right" ng-hide="tab.notifs"></span></span></a>
                 </li>
 
                 <li id="menu_{{chan.key}}" class="channel" ng-repeat="chan in tab.channels" ng-class="{ active : chan.key == selected_tab }">
-                  <a ng-click="selectTab( chan.key )">{{chan.name}} <span class="pull-right"><span class="label label-warning" ng-show="chan.notifs">{{chan.notifs}}</span><span class="icon-chevron-right" ng-hide="chan.notifs"></span></span></a>  
+                  <a ng-click="selectTab( chan.key )">{{chan.name}} {{chan.scrollTop}}<span class="pull-right"><span class="label label-warning" ng-show="chan.notifs">{{chan.notifs}}</span><span class="icon-chevron-right" ng-hide="chan.notifs"></span></span></a>  
                 </li>
               </ul>
             </div>
@@ -237,7 +237,7 @@
                   </thead>
                   <tbody>
                     <tr ng-repeat="message in tab.messages | orderBy:'date':false" ng-class="{ info : message.date > tab.last_seen }">
-                      <td>{{message.date | date:'HH:mm'}}</td>
+                      <td>{{message.date | date:'HH:mm:ss'}}</td>
                       <td>{{message.from}}</td>
                       <td>{{message.content}}</td>
                     </tr>
@@ -257,8 +257,8 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="message in chan.messages | orderBy:'date':false" ng-class="{ info : message.date > tab.last_seen }">
-                      <td>{{message.date | date:'HH:mm'}}</td>
+                    <tr ng-repeat="message in chan.messages | orderBy:'date':false" ng-class="{ info : message.date > chan.last_seen }">
+                      <td>{{message.date | date:'HH:mm:ss'}}</td>
                       <td>{{message.from}}</td>
                       <td>{{message.content}}</td>
                     </tr>
