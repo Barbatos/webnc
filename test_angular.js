@@ -70,10 +70,64 @@ var freenode = {
     };
 
 
-function Webnc($scope) {
+function get_angular(){
+  return angular.element(document.body).scope();
+}
+
+
+var socket = null;
+var $scope = null;
+$(function(){
+  
+  $(".focus").focus();
+
+  $scope = get_angular();
+
+  socket = io.connect('http://localhost:8080');
+  socket.on('connected', function (data) {
+    socket.login_key = data.key;
+  });
+
+  socket.on('logged', function (data) {
+    $scope.$apply(function(){
+      // we are now auth logged
+      $scope.username = $("#login-username").val();
+      setTimeout(function(){ // simulate websocket get servers and channels
+        // add servers and channels
+        $scope.addServer( 0 , quakenet );
+        $scope.addChannel( 0 , 0, frozensand );
+        $scope.addChannel( 0 , 1, pandy );
+        $scope.addServer( 1 , freenode );
+        $scope.addChannel( 1 , 0, csli );
+
+        $scope.selectTab('0'); // select first server
+        $scope.$apply(); // apply modifications
+        
+        $(".bs-docs-sidebar ul li:first a").trigger('click'); // drop a bug with css
+        $("[data-spy=affix]").affix(); // drop a bug with bootstrap affix
+
+      }, 500);
+
+    })
+  })
+
+  socket.on('login failled', function (data) {
+    $scope.$apply(function(){
+      // we are now auth logged
+      $scope.username = '';
+    })
+  })
+})
+
+
+angular.module("myApp", []).controller("Webnc", function($scope) {
+
+
+  $scope.username = '';
+
 
   $scope.tabs = [];
-  $scope.selected_tab = 'Quakenet';
+  $scope.selected_tab = '';
 
   $scope.selectTab = function( name ){
     $scope.selected_tab = name;
@@ -87,12 +141,20 @@ function Webnc($scope) {
     }
   }
 
+  $scope.login = function(){
+    var credital = md5( socket.login_key + $("#login-password").val() )
+    $("#login-password").val('');
+
+    socket.emit('auth', { password: credital, username: $("#login-username").val() });
+  }
+
   $scope.addServer = function( serverKey , server ){
     // We REFUSE to REPLACE a server
     if ( typeof $scope.tabs[serverKey] != "undefined" )
       return false;
 
     $scope.tabs[serverKey] = server;
+    $scope.tabs[serverKey].key = serverKey;
     $scope.tabs[serverKey].channels = [];
     return true;
   }
@@ -107,6 +169,7 @@ function Webnc($scope) {
       return false;
 
     $scope.tabs[serverKey].channels[ channelKey ] = channel;
+    $scope.tabs[serverKey].channels[ channelKey ].key = serverKey+ ':' + channelKey;
     return true;
   }
 
@@ -129,9 +192,4 @@ function Webnc($scope) {
     }
   }
 
-  $scope.addServer( 0 , quakenet );
-  $scope.addChannel( 0 , 0, frozensand );
-  $scope.addChannel( 0 , 1, pandy );
-  $scope.addServer( 1 , freenode );
-  $scope.addChannel( 1 , 0, csli );
-}
+})
