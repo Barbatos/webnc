@@ -149,6 +149,8 @@
         padding-top: 60px;
         padding-bottom: 40px;
       }
+      .message .content{white-space:pre-wrap;}
+      .table-condensed .message td {padding-top: 0px; padding-bottom: 0px;}
       .messages td { font-family: 'Inconsolata', sans-serif; }
       .topic.affix { top: 35px; }
       html { overflow-y: scroll; }
@@ -236,10 +238,10 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="message in tab.messages | orderBy:'date':false" ng-class="{ info : message.date > tab.last_seen }">
+                    <tr class="message" ng-repeat="message in tab.messages | orderBy:'date':false" ng-class="{ info : message.date > tab.last_seen }">
                       <td>{{message.date | date:'HH:mm:ss'}}</td>
                       <td>{{message.from}}</td>
-                      <td>{{message.content}}</td>
+                      <td class="content">{{message.content}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -257,10 +259,10 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="message in chan.messages | orderBy:'date':false" ng-class="{ info : message.date > chan.last_seen }">
+                    <tr class="message" ng-repeat="message in chan.messages | orderBy:'date':false" ng-class="{ info : message.date > chan.last_seen }">
                       <td>{{message.date | date:'HH:mm:ss'}}</td>
                       <td>{{message.from}}</td>
-                      <td>{{message.content}}</td>
+                      <td class="content">{{message.content}}</td>
                     </tr>
                   </tbody>
                 </table>

@@ -1,79 +1,8 @@
-var quakenet = {
-      name: 'Quakenet',
-      subject: 'Super sujet de la mort qui tue',
-      notifs : 5,
-      messages : [
-        {date: new Date('02/26/13 13:31'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint <h1>occaecat</h1> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:33'), from: 'pandy',   content: 'cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:37'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 17:38'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('01/26/13 11:09'), from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
-      ]
-    };
-var frozensand = {
-      name: '#frozensand',
-      subject: 'Super sujet de la mort qui tue',
-      notifs : 9,
-      messages : [
-        {date: new Date('02/26/13 13:31'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint <h1>occaecat</h1> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:33'), from: 'pandy',   content: 'cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:37'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:38'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:39'), from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
-      ]
-    };
-var pandy = {
-      name: 'pandy',
-      subject: 'Super sujet de la mort qui tue',
-      notifs : 0,
-      messages : [
-        {date: new Date('02/26/13 13:31'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint <h1>occaecat</h1> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:33'), from: 'pandy',   content: 'cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:37'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 18:37'), from: 'pandy',   content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 18:38'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('01/26/13 11:39'), from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
-      ]
-    };
-var csli = {
-      name: 'csli',
-      subject: 'Super cslicsli csli la mort qui tue',
-      notifs : 0,
-      messages : [
-        {date: new Date('02/26/13 13:31'), from: 'holblin', content: 'Lorem ipsum csli sit amet, consectetupteur sint <h1>csli</h1> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:33'), from: 'pandy',   content: 'cupidatat non csli, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:37'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, csli sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 18:38'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 18:39'), from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
-      ]
-    };
-var freenode = {
-      name: 'Freenode',
-      subject: 'frozensand subject !!!',
-      notifs : 8,
-      messages : [
-        {date: new Date('02/26/13 13:31'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint <h1>occaecat</h1> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:33'), from: 'raider',  content: 'cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:37'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:37'), from: 'raider',  content: 'officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 13:37'), from: 'raider',  content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 18:38'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-        {date: new Date('02/26/13 18:39'), from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
-      ]
-    };
 
 
-function get_angular(){
-  return angular.element(document.body).scope();
-}
-
+/******************************************************************************
+                                SOCKET IO
+******************************************************************************/
 
 var socket = null;
 var $scope = null;
@@ -84,45 +13,55 @@ $(function(){
   $scope = get_angular();
 
   socket = io.connect('http://localhost:8080');
-  socket.on('connected', function (data) {
-    socket.login_key = data.key;
+  socket.on('auth-key', function (data) {
+    socket.auth_key = data.key;
   });
 
-  socket.on('logged', function (data) {
+  socket.on('auth-logged', function (data) {
     $scope.$apply(function(){
       // we are now auth logged
       $scope.username = $("#login-username").val();
-      setTimeout(function(){ // simulate websocket get servers and channels
-        // add servers and channels
-        $scope.addTab( '0'   , quakenet );
-        $scope.addTab( '0:0' , frozensand );
-        $scope.addTab( '0:1' , pandy );
-        $scope.addTab( '1'   , freenode );
-        $scope.addTab( '1:0' , csli );
-
-        $scope.selectTab('0'); // select first server
-        $scope.$apply(); // apply modifications
-        
-        $(".bs-docs-sidebar ul li:first a").trigger('click'); // drop a bug with css
-        $("[data-spy=affix]").affix(); // drop a bug with bootstrap affix
-
-      }, 500);
-
     })
-  })
+  });
 
-  socket.on('login failled', function (data) {
+  socket.on('auth-fail', function (data) {
     $scope.$apply(function(){
       // we are now auth logged
       $scope.username = '';
     })
-  })
+  });
+  
+  socket.on('tab-add', function (data) {
+
+    $scope.addTab( data.key , data.tab );
+    $scope.$apply(); // apply modifications
+
+  });
+
+  socket.on('message-add', function (data) {
+
+    $scope.addMessage( data.key , data.message );
+    $scope.$apply(); // apply modifications
+
+  });
+
+
 })
 
+//$(".bs-docs-sidebar ul li:first a").trigger('click'); // drop a bug with css
+//$("#messages_"+getStrKey( key )+" [data-spy=affix]").affix(); // drop a bug with bootstrap affix
+
+/******************************************************************************
+                                FX TOOLS
+******************************************************************************/
+
+function get_angular(){
+  return angular.element(document.body).scope();
+}
 
 function getObjKey( key ){
   if ( typeof key == "string" ){
-    var tmp = key.split(':');
+    var tmp = key.split('-');
     key = { server: null , channel: null };
     key.server = tmp[0];
     if ( tmp.length == 2)
@@ -142,14 +81,23 @@ function getStrKey( key ){
     var tmp = ""
     tmp += key.server;
     if ( typeof key.channel != "undefined" && key.channel != null )
-      tmp += ":" + key.channel;
+      tmp += "-" + key.channel;
     return tmp;
   }
   else
     return key;
 }
 
-angular.module("myApp", []).controller("Webnc", function($scope) {
+
+/******************************************************************************
+                                ANGULAR
+******************************************************************************/
+
+angular.module("myApp", []).filter('irc_message', function () {
+  return function(text){
+    return text.replace(/ /g, '&nbsp;');
+  }
+}).controller("Webnc", function($scope) {
 
   $scope.username = '';
 
@@ -158,11 +106,7 @@ angular.module("myApp", []).controller("Webnc", function($scope) {
   
 
   $scope.test = function( arg ){
-    var i = 0;
-    for (i = 0 ; i < 10 ; i++){
-      $scope.addMessage( { server: 0 } ,             {date: new Date(), from:'asche', content: md5(Math.random()) } );
-      $scope.addMessage( { server: 0 , channel: 0 }, {date: new Date(), from:'asche', content: md5(Math.random()) } );
-    }
+    socket.emit('test')
   }
 
 
@@ -216,24 +160,23 @@ angular.module("myApp", []).controller("Webnc", function($scope) {
   }
 
   $scope.login = function(){
-    var credital = md5( socket.login_key + $("#login-password").val() )
+    var credital = md5( socket.auth_key + $("#login-password").val() )
     $("#login-password").val('');
 
-    socket.emit('auth', { password: credital, username: $("#login-username").val() });
+    socket.emit('auth-login', { password: credital, username: $("#login-username").val() });
   }
 
   $scope.addTab = function( key , tab ){  
     key = getObjKey( key );
+    var new_tab;
     if ( key.channel == null ){
       // We REFUSE to REPLACE a server
       if ( $scope.tabExist(key) !== false )
         return false;
 
       $scope.tabs[ key.server ]           = tab;
-      $scope.tabs[ key.server ].scrollTop = 0;
-      $scope.tabs[ key.server ].last_seen = new Date();
-      $scope.tabs[ key.server ].key       = getStrKey( key );
       $scope.tabs[ key.server ].channels  = [];
+      new_tab = $scope.tabs[ key.server ];
 
     } else {
       // We REFUSE to REPLACE a channel and the server MUST exist
@@ -241,16 +184,42 @@ angular.module("myApp", []).controller("Webnc", function($scope) {
         return false;
 
       $scope.tabs[ key.server ].channels[ key.channel ]           = tab;
-      $scope.tabs[ key.server ].channels[ key.channel ].scrollTop = 0;
-      $scope.tabs[ key.server ].channels[ key.channel ].last_seen = new Date();
-      $scope.tabs[ key.server ].channels[ key.channel ].key       = getStrKey( key );
-      return true;
+      new_tab = $scope.tabs[ key.server ].channels[ key.channel ];
     }
+
+    // set default values
+    new_tab.scrollTop = 0;
+    new_tab.last_seen = new Date();
+    new_tab.key       = getStrKey( key );
+
+    // correct the date string into Date object
+    for (var i = new_tab.messages.length - 1; i >= 0; i--) {
+      if ( typeof new_tab.messages[i].date == 'string')
+        new_tab.messages[i].date = new Date( new_tab.messages[i].date );
+    };
+
+
+    // First element added, select it and correct css bug
+    if ( $scope.selected_tab == '' ){
+      $scope.selected_tab = getStrKey( key );
+      setTimeout(function(){
+        $(".bs-docs-sidebar ul li:first a").trigger('click'); // drop a bug with css
+      }, 50)
+    }
+    
+    // add affix on live elements
+    setTimeout(function( strKey ){
+      $("#messages_"+strKey+" [data-spy=affix]").affix(); // drop a bug with bootstrap affix
+    },50, getStrKey( key ) );
+
+    return true;
   }
 
   $scope.addMessage = function( key , message ) {
     
     var tab = $scope.getTab( key )
+    if ( typeof message.date == 'string')
+      message.date = new Date( message.date );
     tab.messages.push( message );
 
     if ( $scope.selected_tab != getStrKey(key) ){
