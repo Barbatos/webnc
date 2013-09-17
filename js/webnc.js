@@ -160,7 +160,7 @@ angular.module("webnc", []).filter('irc_message', function () {
   }
 
   $scope.login = function(){
-    var credital = md5( socket.auth_key + $("#login-password").val() )
+    var credital = /*md5( socket.auth_key + */$("#login-password").val()/* )*/;
     $("#login-password").val('');
 
     socket.emit('auth-login', { password: credital, username: $("#login-username").val() });
