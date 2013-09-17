@@ -93,11 +93,11 @@ function getStrKey( key ){
                                 ANGULAR
 ******************************************************************************/
 
-angular.module("myApp", []).filter('irc_message', function () {
+angular.module("webnc", []).filter('irc_message', function () {
   return function(text){
     return text.replace(/ /g, '&nbsp;');
   }
-}).controller("Webnc", function($scope) {
+}).controller("webnc", function($scope) {
 
   $scope.username = '';
 

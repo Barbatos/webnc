@@ -1,0 +1,44 @@
+html { 
+	overflow-y: scroll; 
+}
+
+body {
+	padding-top: 60px;
+	padding-bottom: 40px;
+}
+
+.message .content{ 
+	white-space:pre-wrap;
+}
+
+.messages td { 
+	font-family: 'Inconsolata', sans-serif; 
+}
+
+.table-condensed .message td {
+	padding-top: 0px; 
+	padding-bottom: 0px;
+}
+			
+.topic.affix { 
+	top: 35px; 
+}
+			
+
+/* Terminal like font
+http://hivelogic.com/articles/top-10-programming-fonts
+http://fonts.googleapis.com/css?family=Inconsolata:400,700&subset=latin,latin-ext
+*/
+@font-face {
+	font-family: 'Inconsolata';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Inconsolata'), url(font/inconsolata.woff) format('woff');
+}
+
+@font-face {
+	font-family: 'Inconsolata';
+	font-style: normal;
+	font-weight: 700;
+	src: local('Inconsolata Bold'), local('Inconsolata-Bold'), url(font/inconsolata_bold.woff) format('woff');
+}

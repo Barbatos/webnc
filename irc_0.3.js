@@ -46,12 +46,6 @@ client.addListener('join', function (channel, nick, message) {
 
 // =====================================================================
 
-
-client.once('join#csli', function (nick, message) {
-	if ( nick == this.nick )
-		this.say('#csli', "I'm online !" )
-});
-
 client.addListener('message', function (nick, to, text, message) {
 	if ( text == "ping" ){
 		if (to == this.nick )
