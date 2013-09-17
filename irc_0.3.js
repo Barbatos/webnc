@@ -14,10 +14,10 @@ io.sockets.on('connection', function (socket) {
 var channels_nokick = ['#csli']
 var irc = require('irc');
 var util = require('util');
-var client = new irc.Client('irc.freenode.net', 'test_nodejs', {
-	channels: ['#csli'],
-	userName: 'my_user',
-	realName: 'my_real',
+var client = new irc.Client('irc.quakenet.org', 'barbiebot', {
+	channels: ['#nodejs'],
+	userName: 'barbie',
+	realName: 'barbie',
     autoRejoin: false,
 	port: 6667,
 	debug: true,
