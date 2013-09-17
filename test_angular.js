@@ -12,7 +12,7 @@ $(function(){
 
   $scope = get_angular();
 
-  socket = io.connect('http://localhost:8080');
+  socket = io.connect('http://localhost:1337');
   socket.on('auth-key', function (data) {
     socket.auth_key = data.key;
   });
