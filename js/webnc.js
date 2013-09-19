@@ -26,7 +26,6 @@ $(function(){
 
   socket.on('auth-fail', function (data) {
     $scope.$apply(function(){
-      // we are now auth logged
       $scope.username = '';
     })
   });
@@ -43,6 +42,12 @@ $(function(){
     $scope.addMessage( data.key , data.message );
     $scope.$apply(); // apply modifications
 
+  });
+
+  socket.on('error-message', function (data) {
+    $scope.$apply(function() {
+      $scope.errorMessage = data.message;
+    });
   });
 
 
@@ -100,6 +105,7 @@ angular.module("webnc", []).filter('irc_message', function () {
 }).controller("webnc", function($scope) {
 
   $scope.username = '';
+  $scope.errorMessage = '';
 
   $scope.tabs = [];
   $scope.selected_tab = '';
@@ -160,9 +166,9 @@ angular.module("webnc", []).filter('irc_message', function () {
   }
 
   $scope.login = function(){
-    var credital = /*md5( socket.auth_key + */$("#login-password").val()/* )*/;
+    var credital = md5( $("#login-password").val() );
     $("#login-password").val('');
-
+    alert('password:'+credital);
     socket.emit('auth-login', { password: credital, username: $("#login-username").val() });
   }
 

@@ -23,27 +23,38 @@ io.sockets.on('connection', function (socket) {
 
 		socket.on('auth-login', function (data) {
 	  		if(data.username.length < 3){
-	  			socket.emit('error-message', 'Please enter a valid username.');
+	  			socket.emit('error-message', { message: 'Please enter a valid username.' });
+	  			socket.emit( 'auth-fail');
 	  			return false;
 	  		}
 
-	  		if(data.password.length < 6){
-	  			socket.emit('error-message', 'Please enter a valid password.');
+	  		if(data.password.length < 3){
+	  			socket.emit('error-message', { message: 'Please enter a valid password.' });
+	  			socket.emit( 'auth-fail');
+	  			return false;
 	  		}
 
-	  		
-
-	  		var hashedPassword = crypto.createHash('sha1').update( socket.auth_key + data.password, 'utf8').digest('hex');
-
-	  		console.log('username:'+data.username+', password:'+data.password+',');
-
-			sqldb.query('SELECT id FROM users WHERE username = '+sqldb.escape(data.username)+' AND password = '+sqldb.escape(data.password), 
+			sqldb.query('SELECT id, password FROM users WHERE username = '+sqldb.escape(data.username), 
 				function(err, rows, fields) {
 					if(rows[0]){
-						console.log('User '+data.username+' connected!');
+						var hashedPassword = crypto.createHash('sha1').update(data.password, 'utf8').digest('hex');
+
+						console.log('hashed:'+hashedPassword);
+						
+						if(hashedPassword == rows[0].password){
+							console.log('User '+data.username+' connected!');
+							socket.emit( 'auth-logged');
+							socket.username = data.username;
+						}
+						else {
+							socket.emit('error-message', { message: 'Incorrect password.' });
+							socket.emit( 'auth-fail');
+							return false;
+						}
 					}
 					else {
-						socket.emit('error-message', 'Username or password not found.');
+						socket.emit('error-message', { message: 'Username not found.' });
+						socket.emit('auth-fail');
 						return false;
 					}
 
@@ -51,15 +62,8 @@ io.sockets.on('connection', function (socket) {
 				}
 			);
 
-			var crypt_pass = crypto.createHash('sha1').update( socket.auth_key + 'bonjour', 'utf8').digest('hex');
-
-		if ( data.password == crypt_pass ){
-			socket.emit( 'auth-logged');
-			socket.username = data.username;
-			console.log( data.username + ' logged' );
-
 		  // send connected servers / channels
-		  socket.emit( 'tab-add' , { key: '0'   , tab: quakenet });
+		 /* socket.emit( 'tab-add' , { key: '0'   , tab: quakenet });
 		  socket.emit( 'tab-add' , { key: '0-0' , tab: frozensand });
 		  socket.emit( 'tab-add' , { key: '0-1' , tab: pandy });
 		  socket.emit( 'tab-add' , { key: '1'   , tab: freenode });
@@ -91,8 +95,8 @@ io.sockets.on('connection', function (socket) {
 		} else {
 			socket.emit( 'auth-fail');
 			console.log( data.username + ' login failed !' );
-		}
-	  });
+		}*/
+	  	});
 	});
 });
 

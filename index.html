@@ -45,8 +45,13 @@
 			</div>
 		</div>
 
+		<div ng-show="errorMessage != ''">
+			<div class="alert alert-error">
+				{{errorMessage}}
+			</div>
+		</div>
 		<div ng-show="username == ''">
-			<form class="well span4 offset5" style="text-align: center; margin-top: 10%;" ng-submit="login()">
+			<form class="well span4 offset5" style="text-align: center; margin-top: 10%;" method="post" ng-submit="login()">
 				<h1>Login</h1>
 				<div>
 					<div class="input-prepend">
