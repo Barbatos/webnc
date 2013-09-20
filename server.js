@@ -1,6 +1,8 @@
 var io 		= require('socket.io').listen(1337);
 var mysql 	= require('mysql');
 var crypto 	= require('crypto');
+var irc 	= require('irc');
+var util 	= require('util');
 
 var sqldb = mysql.createPool({
 	host     : '127.0.0.1',
@@ -9,9 +11,46 @@ var sqldb = mysql.createPool({
 	database : 'webnc',
 });
 
+var client = new irc.Client('irc.quakenet.org', 'barbiebot', {
+	channels: 	['#nodejs', '#f1manager'],
+	userName: 	'barbie',
+	realName: 	'barbie',
+    autoRejoin: false,
+	port: 		6667,
+	debug: 		true,
+});
+
+client.addListener('message', function (nick, to, text, message) {
+	if ( text == "ping" ){
+		if (to == this.nick ){
+			this.say( nick , "pong [PM]" )
+		} else {
+			this.say( to , "pong [CHAN]" )
+		}
+	}
+	else {
+		io.sockets.emit('message', arguments)
+	}
+});
+
+client.addListener('selfMessage', function ( to, text ) {
+	io.sockets.emit('message', [ this.nick , to, text ])
+});
+
+client.addListener('ctcp', function (from, to, text, type) {
+	io.sockets.emit('message', [ from , to, "["+type+"]** " + text ])
+});
+
+client.addListener('join', function (channel, nick, message) {
+	if ( nick == this.nick )
+		io.sockets.emit('message', [ nick, channel, nick + " joins the channel (" + message +")"])
+});
+
 io.sockets.on('connection', function (socket) {
   	socket.auth_key = randomString();
-  
+  	
+  	socket.emit('connected', { chans: client.opt.channels });
+
   	socket.emit('auth-key', { 
   		key: socket.auth_key 
   	});
@@ -38,8 +77,6 @@ io.sockets.on('connection', function (socket) {
 				function(err, rows, fields) {
 					if(rows[0]){
 						var hashedPassword = crypto.createHash('sha1').update(data.password, 'utf8').digest('hex');
-
-						console.log('hashed:'+hashedPassword);
 						
 						if(hashedPassword == rows[0].password){
 							console.log('User '+data.username+' connected!');
