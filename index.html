@@ -106,9 +106,9 @@
 											<th>Message</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr class="message" ng-repeat="message in tab.messages | orderBy:'date':false" ng-class="{ info : message.date > tab.last_seen }">
-											<td>{{message.date | date:'HH:mm:ss'}}</td>
+									<tbody id="messagesList">
+										<tr class="message" ng-repeat="message in chan.messages | orderBy:'date':false" ng-class="{ info : message.date > chan.last_seen }">
+											<td>{{message.h}}:{{message.m}}:{{message.s}}</td>
 											<td>{{message.from}}</td>
 											<td class="content">{{message.content}}</td>
 										</tr>
@@ -127,9 +127,9 @@
 											<th>Message</th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody id="messagesList">
 										<tr class="message" ng-repeat="message in chan.messages | orderBy:'date':false" ng-class="{ info : message.date > chan.last_seen }">
-											<td>{{message.date | date:'HH:mm:ss'}}</td>
+											<td>{{message.h}}:{{message.m}}:{{message.s}}</td>
 											<td>{{message.from}}</td>
 											<td class="content">{{message.content}}</td>
 										</tr>

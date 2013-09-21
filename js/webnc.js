@@ -40,7 +40,20 @@ $(function(){
 			$scope.errorMessage = data.message;
 		});
 	});
-})
+
+	socket.on('message', function (data) {
+		wText=data[2];
+		wText=wText.replace(/&/g, "&amp;");
+		wText=wText.replace(/"/g, "&quot;");
+		wText=wText.replace(/</g, "&lt;");
+		wText=wText.replace(/>/g, "&gt;");
+		wText=wText.replace(/'/g, "&#146;");
+		wText=wText.replace(/ /g, "&nbsp;");
+		$("#messagesList").append("<tr><td>"+ data.h +":"+ data.m +":"+data.s+"</td><td>"+ data[0] +"</td><td>"+ wText +"</td></tr>");
+		//notify("", data[0] + " => " + data[1], data[2] );
+		$("#messagesList").animate({ scrollTop: $("#messagesList").prop("scrollHeight") }, 50);
+	});
+});
 
 function get_angular(){
 	return angular.element(document.body).scope();

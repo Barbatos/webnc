@@ -12,53 +12,80 @@ var sqldb = mysql.createPool({
 });
 
 var client = new irc.Client('irc.quakenet.org', 'barbiebot', {
-	channels: 	['#nodejs', '#f1manager'],
-	userName: 	'barbie',
-	realName: 	'barbie',
-    autoRejoin: false,
-	port: 		6667,
-	debug: 		true,
+	channels: 				['#nodejs', '#f1manager'],
+	userName: 				'barbie',
+	realName: 				'barbie',
+    autoRejoin: 			true,
+	port: 					6667,
+	floodProtection: 		true,
+    floodProtectionDelay: 	1000,
+	debug: 					true,
 });
 
-client.addListener('message', function (nick, to, text, message) {
-	if ( text == "ping" ){
-		if (to == this.nick ){
-			this.say( nick , "pong [PM]" )
-		} else {
-			this.say( to , "pong [CHAN]" )
-		}
+sqldb.getConnection(function(err, connection, arguments) {
+	if(err){
+		console.log('Error connecting to the DB: '+err);
 	}
-	else {
-		io.sockets.emit('message', arguments)
-	}
-});
 
-client.addListener('selfMessage', function ( to, text ) {
-	io.sockets.emit('message', [ this.nick , to, text ])
-});
+	client.addListener('message', function (nick, to, text, message) {
+		date = new Date();
 
-client.addListener('ctcp', function (from, to, text, type) {
-	io.sockets.emit('message', [ from , to, "["+type+"]** " + text ])
-});
-
-client.addListener('join', function (channel, nick, message) {
-	if ( nick == this.nick )
-		io.sockets.emit('message', [ nick, channel, nick + " joins the channel (" + message +")"])
-});
-
-io.sockets.on('connection', function (socket) {
-  	socket.auth_key = randomString();
-  	
-  	socket.emit('connected', { chans: client.opt.channels });
-
-  	socket.emit('auth-key', { 
-  		key: socket.auth_key 
-  	});
-
-  	sqldb.getConnection(function(err, connection) {
-		if(err){
-			console.log('Error connecting to the DB: '+err);
+		if ( text == "ping" ){
+			if (to == this.nick ){
+				this.say( nick , "pong [PM]" )
+			} else {
+				this.say( to , "pong [CHAN]" )
+			}
 		}
+		else {
+			arguments.nick = nick;
+			arguments.to = to;
+			arguments.h = date.getHours();
+			arguments.m = date.getMinutes();
+			arguments.s = date.getSeconds();
+
+			io.sockets.emit('message', arguments);
+
+			
+			post = {from: nick, to: to, date: (date.getTime()/1000), message: message, status: 0 };
+			sqldb.query('INSERT INTO messages SET ?', post,  
+				function(err, result) {
+					if(err){
+						throw err;
+					}
+					connection.release();
+				}
+			);
+		}
+	});
+
+	client.addListener('selfMessage', function ( to, text ) {
+		io.sockets.emit('message', [ this.nick , to, text ])
+	});
+
+	client.addListener('ctcp', function (from, to, text, type) {
+		io.sockets.emit('message', [ from , to, "["+type+"]** " + text ])
+	});
+
+	client.addListener('join', function (channel, nick, message) {
+		if ( nick == this.nick ){
+			io.sockets.emit('message', [ nick, channel, nick + " joins the channel (" + message +")"])
+		}
+	});
+
+	client.addListener('error', function(message) {
+		console.log('[IRC] error: ', message);
+	});
+
+	io.sockets.on('connection', function (socket) {
+	  	socket.auth_key = randomString();
+	  	
+	  	socket.emit('connected', { chans: client.opt.channels });
+
+	  	socket.emit('auth-key', { 
+	  		key: socket.auth_key 
+	  	});
+
 
 		socket.on('auth-login', function (data) {
 	  		if(data.username.length < 3){
@@ -82,6 +109,9 @@ io.sockets.on('connection', function (socket) {
 							console.log('User '+data.username+' connected!');
 							socket.emit( 'auth-logged');
 							socket.username = data.username;
+
+							socket.emit('tab-add', { key: '0'  , tab: quakenet });
+							socket.emit('tab-add', { key: '0-0', tab: nodejs });
 						}
 						else {
 							socket.emit('error-message', { message: 'Incorrect password.' });
@@ -98,41 +128,6 @@ io.sockets.on('connection', function (socket) {
 					connection.release();
 				}
 			);
-
-		  // send connected servers / channels
-		 /* socket.emit( 'tab-add' , { key: '0'   , tab: quakenet });
-		  socket.emit( 'tab-add' , { key: '0-0' , tab: frozensand });
-		  socket.emit( 'tab-add' , { key: '0-1' , tab: pandy });
-		  socket.emit( 'tab-add' , { key: '1'   , tab: freenode });
-		  socket.emit( 'tab-add' , { key: '1-0' , tab: csli });
-
-
-		  socket.on('test' , function() {
-			var i = 0;
-			for (i = 0 ; i < 10 ; i++){
-			  socket.emit( 'message-add' , { 
-				  key:{ server: 0 } ,
-				  message: {date: new Date(), from:'asche', content: randomString() + " " + randomString() + " " + randomString() } });
-			  socket.emit( 'message-add' , { 
-				  key:{ server: 0 , channel: 0 } , 
-				  message: {date: new Date(), from:'asche', content: randomString() + " " + randomString() + " " + randomString() } });
-			}
-
-			socket.emit( 'message-add' , { key: '0-1' , message: {date: new Date(), from:'asche', content: '     )     ' } });
-			socket.emit( 'message-add' , { key: '0-1' , message: {date: new Date(), from:'asche', content: '     (     ' } });
-			socket.emit( 'message-add' , { key: '0-1' , message: {date: new Date(), from:'asche', content: '      )    ' } });
-			socket.emit( 'message-add' , { key: '0-1' , message: {date: new Date(), from:'asche', content: ' __.--(--. ' } });
-			socket.emit( 'message-add' , { key: '0-1' , message: {date: new Date(), from:'asche', content: '|| |     | ' } });
-			socket.emit( 'message-add' , { key: '0-1' , message: {date: new Date(), from:'asche', content: ' \\\\|     | ' } });
-			socket.emit( 'message-add' , { key: '0-1' , message: {date: new Date(), from:'asche', content: '  \\.     . ' } });
-			socket.emit( 'message-add' , { key: '0-1' , message: {date: new Date(), from:'asche', content: '    `---\'  ' } });
-
-		  })
-
-		} else {
-			socket.emit( 'auth-fail');
-			console.log( data.username + ' login failed !' );
-		}*/
 	  	});
 	});
 });
@@ -159,68 +154,14 @@ var quakenet = {
 	  subject: 'Super sujet de la mort qui tue',
 	  notifs : 5,
 	  messages : [
-		{date: new Date('02/26/13 13:31'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint <h1>occaecat</h1> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 13:33'), from: 'pandy',   content: 'cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 13:37'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 17:38'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('01/26/13 11:09'), from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
+		{}
 	  ]
 	};
-var frozensand = {
-	  name: '#frozensand',
-	  subject: 'Super sujet de la mort qui tue',
-	  notifs : 9,
-	  messages : [
-		{date: new Date('02/26/13 13:31'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint <h1>occaecat</h1> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 13:33'), from: 'pandy',   content: 'cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 13:37'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 13:38'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 13:39'), from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
-	  ]
-	};
-var pandy = {
-	  name: 'pandy',
+var nodejs = {
+	  name: '#nodejs',
 	  subject: 'Super sujet de la mort qui tue',
 	  notifs : 0,
 	  messages : [
-		{date: new Date('02/26/13 13:31'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint <h1>occaecat</h1> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 13:33'), from: 'pandy',   content: 'cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 13:37'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 18:37'), from: 'pandy',   content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 18:38'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('01/26/13 11:39'), from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
-	  ]
-	};
-var csli = {
-	  name: 'csli',
-	  subject: 'Super cslicsli csli la mort qui tue',
-	  notifs : 0,
-	  messages : [
-		{date: new Date('02/26/13 13:31'), from: 'holblin', content: 'Lorem ipsum csli sit amet, consectetupteur sint <h1>csli</h1> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 13:33'), from: 'pandy',   content: 'cupidatat non csli, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 13:37'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, csli sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 13:37'), from: 'pandy',   content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 18:38'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 18:39'), from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
-	  ]
-	};
-var freenode = {
-	  name: 'Freenode',
-	  subject: 'frozensand subject !!!',
-	  notifs : 8,
-	  messages : [
-		{date: new Date('02/26/13 13:31'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint <h1>occaecat</h1> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 13:33'), from: 'raider',  content: 'cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 13:37'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 13:37'), from: 'raider',  content: 'officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 13:37'), from: 'raider',  content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 18:38'), from: 'holblin', content: 'Lorem ipsum dolor sit amet, consectetupteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-		{date: new Date('02/26/13 18:39'), from: 'holblin', content: 'officia deserunt mollit anim id est laborum.' }
+		{}
 	  ]
 	};
